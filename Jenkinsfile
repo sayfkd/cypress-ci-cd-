@@ -5,6 +5,11 @@ pipeline{
             args '--entrypoint=""'
         }
     }
+
+    parameters {
+        string(name: 'TAG', defaultValue: '@login', description: 'Tag pour filtrer les tests Cypress')
+    }
+
     stages{
         stage('verifier la version de npm'){
             steps{
@@ -15,7 +20,7 @@ pipeline{
         }
         stage('test cypress'){
             steps{
-                sh 'npx cypress run'
+                sh 'npx cypress run --env grepTags=@${params.TAG)'
             }
         }
     }
