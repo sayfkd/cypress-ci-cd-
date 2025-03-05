@@ -21,7 +21,7 @@ pipeline {
         stage('Test Cypress') {
             steps {
                 script {
-                    sh "npx cypress run --env grepTags='${params.TAG}'"
+                    sh "npx cypress run --reporter junit --env grepTags='${params.TAG}'"
                 }
             }
         }
