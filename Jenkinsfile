@@ -20,10 +20,11 @@ pipeline{
         }
         stage('test cypress'){
             steps{
-                sh 'npx cypress run --env grepTags=@${params.TAG)'
+                sh 'npx cypress run --env grepTags=@${params.TAG}'
             }
         }
     }
+    
 
     post{
         always {
