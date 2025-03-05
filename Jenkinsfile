@@ -26,15 +26,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Vérifier les rapports Cypress') {
-            steps {
-                script {
-                    echo "Vérification des fichiers générés..."
-                    sh "ls -lah cypress/reports/"
-                }
-            }
-        }
     }
 
     post {
