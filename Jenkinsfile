@@ -9,6 +9,8 @@ pipeline{
         stage('verifier la version de npm'){
             steps{
                 sh "npm -v"
+                sh "npm i"
+
                    }
         }
         stage('test cypress'){
