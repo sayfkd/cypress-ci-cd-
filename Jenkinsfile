@@ -40,7 +40,7 @@ pipeline {
         always {
             echo "Archivage des rapports Cypress"
             junit 'results/**/*.xml'
-            archiveArtifacts artifacts: 'cypress/reports/**/*.*', followSymlinks: false
+            //archiveArtifacts artifacts: 'cypress/reports/**/*.*', followSymlinks: false
         }
     }
 }
