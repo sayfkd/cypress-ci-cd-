@@ -15,14 +15,14 @@ pipeline{
         }
         stage('test cypress'){
             steps{
-                sh 'npx cypress run  --reporter cypress-mochawesome-reporter'
+                sh 'npx cypress run'
             }
         }
     }
 
     post{
         always {
-            archiveArtifacts artifacts: 'cypress/reports/html/index.html', followSymlinks: false
+            archiveArtifacts artifacts: 'cypress/reports/**/*.*', followSymlinks: false
         }
     }
 }
