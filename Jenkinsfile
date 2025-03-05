@@ -21,7 +21,6 @@ pipeline {
         stage('Test Cypress') {
             steps {
                 script {
-                    echo "Exécution des tests Cypress avec le tag: ${params.TAG}"
                     sh "npx cypress run --env grepTags='${params.TAG}'"
                 }
             }
@@ -40,6 +39,7 @@ pipeline {
     post {
         always {
             echo "Archivage des rapports Cypress"
+            junit 'results/**/*.xml'
             archiveArtifacts artifacts: 'cypress/reports/**/*.*', followSymlinks: false
         }
     }
