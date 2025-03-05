@@ -9,7 +9,7 @@ pipeline {
     parameters {
         choice(name: 'TAG', choices: ['smoke', 'e2e', 'sanity', 'regression', 'login'], description: 'TAG')
         string(name: 'NAME', defaultValue: '', description: 'Nom du test ')
-    }    }
+    }   
 
     stages {
         stage('Vérifier la version de npm') {
@@ -22,7 +22,6 @@ pipeline {
             steps {
                  script {
                     def testCommand = "npx cypress run --reporter junit"
-                    --env grep="auth user"
                     if (params.TEST_NAME?.trim()) {
                         testCommand += " --env grep='${params.TEST_NAME}'"
                     } else {
