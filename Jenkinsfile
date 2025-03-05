@@ -1,32 +1,45 @@
-pipeline{
-    agent{
-        docker{
+pipeline {
+    agent {
+        docker {
             image "cypress/browsers"
             args '--entrypoint=""'
         }
     }
 
     parameters {
-        string(name: 'TAG', defaultValue: '@login', description: 'Tag')
+        string(name: 'TAG', defaultValue: '@login', description: 'Tag des tests Cypress')
     }
 
-    stages{
-        stage('verifier la version de npm'){
-            steps{
+    stages {
+        stage('Vérifier la version de npm') {
+            steps {
                 sh "npm -v"
                 sh "npm ci"
-
-                   }
+            }
         }
-        stage('test cypress'){
-            steps{
-                sh 'npx cypress run --env grepTags=${params.TAG}'
+
+        stage('Test Cypress') {
+            steps {
+                script {
+                    echo "Exécution des tests Cypress avec le tag: ${params.TAG}"
+                    sh "npx cypress run --env grepTags='${params.TAG}'"
+                }
+            }
+        }
+
+        stage('Vérifier les rapports Cypress') {
+            steps {
+                script {
+                    echo "Vérification des fichiers générés..."
+                    sh "ls -lah cypress/reports/"
+                }
             }
         }
     }
 
-    post{
+    post {
         always {
+            echo "Archivage des rapports Cypress"
             archiveArtifacts artifacts: 'cypress/reports/**/*.*', followSymlinks: false
         }
     }
