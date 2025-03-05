@@ -7,7 +7,7 @@ pipeline{
     }
 
     parameters {
-        string(name: 'TAG', defaultValue: '@login', description: 'Tag pour filtrer les tests Cypress')
+        string(name: 'TAG', defaultValue: '@login', description: 'Tag')
     }
 
     stages{
@@ -20,11 +20,10 @@ pipeline{
         }
         stage('test cypress'){
             steps{
-                sh 'npx cypress run --env grepTags=@${params.TAG}'
+                sh 'npx cypress run --env grepTags=${params.TAG}'
             }
         }
     }
-    
 
     post{
         always {
