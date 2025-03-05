@@ -30,7 +30,7 @@ pipeline {
 
     post {
         always {
-            echo "Archivage des rapports Cypress"
+            // echo "Archivage des rapports Cypress"
             junit 'results/**/*.xml'
             //archiveArtifacts artifacts: 'cypress/reports/**/*.*', followSymlinks: false
         }
