@@ -23,9 +23,9 @@ pipeline {
                  script {
                     def testCommand = "npx cypress run --reporter junit"
                     if (params.TEST_NAME?.trim()) {
-                        testCommand += " --env grep='${params.TEST_NAME}'"
+                        testCommand += " --env grep='${params.NAME}'"
                     } else {
-                        testCommand += " --env grepTags='@${params.TEST_TYPE}'"
+                        testCommand += " --env grepTags='@${params.TAG}'"
                     }
                     sh testCommand
                 }
