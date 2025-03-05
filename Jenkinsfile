@@ -1,7 +1,7 @@
 pipeline{
     agent{
         docker{
-            image "cypress/included"
+            image "cypress/browsers"
             args '--entrypoint=""'
         }
     }
@@ -15,6 +15,12 @@ pipeline{
             steps{
                 sh 'npx cypress run'
             }
+        }
+    }
+
+    post{
+        always {
+            archiveArtifacts artifacts: 'cypress/reports/html/index.html', followSymlinks: false
         }
     }
 }
