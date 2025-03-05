@@ -15,7 +15,7 @@ pipeline{
         }
         stage('test cypress'){
             steps{
-                sh 'npx cypress run'
+                sh 'npx cypress run  --reporter cypress-mochawesome-reporter'
             }
         }
     }
