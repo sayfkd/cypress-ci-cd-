@@ -1,7 +1,7 @@
 const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
-  reporter: 'cypress-mochawesome-reporter', // a ajouter
+  //reporter: 'cypress-mochawesome-reporter', // a ajouter
   reporter: 'junit',
   reporterOptions: {
     mochaFile: 'results/my-test-output.xml',
