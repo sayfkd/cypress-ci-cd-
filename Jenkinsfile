@@ -7,8 +7,9 @@ pipeline {
     }
 
     parameters {
-        string(name: 'TAG', defaultValue: '@login', description: 'Tag des tests Cypress')
-    }
+        choice(name: 'TAG', choices: ['smoke', 'e2e', 'sanity', 'regression', 'login'], description: 'TAG')
+        string(name: 'NAME', defaultValue: '', description: 'Nom du test ')
+    }    }
 
     stages {
         stage('Vérifier la version de npm') {
@@ -17,11 +18,23 @@ pipeline {
                 sh "npm ci"
             }
         }
-
+        stage('Test Cypress') {
+            steps {
+                 script {
+                    def testCommand = "npx cypress run --reporter junit"
+                    --env grep="auth user"
+                    if (params.TEST_NAME?.trim()) {
+                        testCommand += " --env grep='${params.TEST_NAME}'"
+                    } else {
+                        testCommand += " --env grepTags='@${params.TEST_TYPE}'"
+                    }
+                    sh testCommand
+                }
+            }
+        }
         stage('Test Cypress') {
             steps {
                 script {
-                  //  sh "npx cypress run --reporter junit --env grepTags='${params.TAG}'"
                    sh "npx cypress run --reporter junit"
                 }
             }
@@ -36,3 +49,4 @@ pipeline {
         }
     }
 }
+
