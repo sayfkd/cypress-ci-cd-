@@ -18,15 +18,17 @@ pipeline {
                 sh "npm ci"
             }
         }
-        stage('Test Cypress') {
+         stage('Test Cypress') {
             steps {
-                 script {
+                script {
                     def testCommand = "npx cypress run --reporter junit"
-                    if (params.TEST_NAME?.trim()) {
+
+                    if (params.NAME?.trim()) {
                         testCommand += " --env grep='${params.NAME}'"
                     } else {
                         testCommand += " --env grepTags='@${params.TAG}'"
                     }
+
                     sh testCommand
                 }
             }
